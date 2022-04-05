@@ -1,4 +1,5 @@
-# BIT210-Assignment2-New
-New repo due to some major changes  
-[Old Repository](https://github.com/zalaanCaspe/BIT210-Assignment2)  
-[Assignment 1 Github Pages](https://zalaancaspe.github.io/BIT210-Assignment1/)
+# BIT210 Web Programming Assignment 2
+
+Adding the back-end for HELP Aid. A website made in assignment 1
+
+Can't be accessed through Github pages
