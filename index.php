@@ -44,7 +44,7 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo me-auto">
-        <h1><a href="index.php"><img src="assets/img/logo.png" alt=""> HELP Aid</a></h1>
+        <h1><a href="index.php"><img src="assets/img/logo.png" alt=""  class="img-fluid"> HELP Aid</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
       </div>
@@ -53,13 +53,9 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="organizations.php">Organizations</a></li>
-          <li><a class="nav-link scrollto " href="appeals.php">Appeals</a></li>
-          <li><a class="nav-link scrollto" href="#testimonials">Testimonials</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="applicants.php">Applicants</a></li>
+          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
           <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto " href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

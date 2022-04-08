@@ -41,21 +41,17 @@ session_start();
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <div class="logo me-auto">
-        <h1><a href="index.php"><img src="assets/img/logo.png" alt=""> HELP Aid</a></h1>
+    <div class="logo me-auto">
+        <h1><a href="index.php"><img src="assets/img/logo.png" class="img-fluid" alt=""> HELP Aid</a></h1>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="organizations.php">Organizations</a></li>
-          <li><a class="nav-link scrollto" href="appeals.php">Appeals</a></li>
-          <li><a class="nav-link scrollto" href="index.php#testimonials">Testimonials</a></li>
-          <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="applicants.php">Applicants</a></li>
+          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
           <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto " href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

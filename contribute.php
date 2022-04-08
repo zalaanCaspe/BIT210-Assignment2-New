@@ -41,23 +41,17 @@
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <div class="logo me-auto">
-        <h1><a href="index.php"><img src="assets/img/logo.png" alt=""> HELP Aid</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.php"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <div class="logo me-auto">
+        <h1><a href="index.php"><img src="assets/img/logo.png" class="img-fluid" alt=""> HELP Aid</a></h1>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto " href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="organizations.php">Organizations</a></li>
-          <li><a class="nav-link scrollto active" href="appeals.php">Appeals</a></li>
-          <li><a class="nav-link scrollto" href="index.php#testimonials">Testimonials</a></li>
-          <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="applicants.php">Applicants</a></li>
+          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
           <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto " href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -151,7 +145,7 @@
                   <div class="row">
                     <div class="col-md-3 mb-3">
                       <label for="goodsType">Goods type</label>
-                      <select name="goodsType" class="custom-select d-block w-100" id="goodsType" required>
+                      <select name="goodsType" class="custom-select d-block w-100" id="goodsType" >
                         <option value="">Choose...</option>
                         <option>Food</option>
                         <option>Toiletries</option>
@@ -172,7 +166,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="quantity">Quantity</label>
-                      <input type="number" name="quantity" min="1" class="form-control" id="quantity" placeholder="" required>
+                      <input type="number" name="quantity" min="1" class="form-control" id="quantity" placeholder="" >
                       <div class="invalid-feedback">
                         Please input a valid quantity.
                       </div>
@@ -183,14 +177,14 @@
       
                   <div class="mb-3">
                     <label for="description">Goods description<span class="text-muted"></span></label>
-                    <input type="text" name="goodsDesc" class="form-control" id="description" required>
+                    <input type="text" name="goodsDesc" class="form-control" id="description" >
                     <div class="invalid-feedback">
                       Please enter a valid description.
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="estimatedValue">Estimated value (RM)<span class="text-muted"></span></label>
-                    <input type="number" name="value" min="1" class="form-control" id="estimatedValue" required>
+                    <input type="number" name="value" min="1" class="form-control" id="estimatedValue" >
                     <div class="invalid-feedback">
                       Please enter a valid estimated value.
                     </div>
@@ -205,15 +199,15 @@
                   <h5 class="mb-3">Payment channel</h4>
                   <div class="d-block my-3">
                     <div class="custom-control custom-radio">
-                        <input id="bankTransfer" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('second')" checked required>
+                        <input id="bankTransfer" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('second')" checked>
                         <label class="custom-control-label" for="bankTransfer">Bank transfer</label>
                     </div>
                     <div class="custom-control custom-radio">
-                      <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')" required>
+                      <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')">
                       <label class="custom-control-label" for="credit">Credit card</label>
                     </div>
                     <div class="custom-control custom-radio">
-                      <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')" required>
+                      <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')">
                       <label class="custom-control-label" for="debit">Debit card</label>
                     </div>
                     
@@ -222,7 +216,7 @@
                   <div class = "row">
                     <div class="mb-3">
                         <label for="cashAmount">Cash amount (RM)<span class="text-muted"></span></label>
-                        <input type="number" name="cashAmount" class="form-control" id="cashAmount" required>
+                        <input type="number" name="cashAmount" class="form-control" id="cashAmount">
                         <div class="invalid-feedback">
                           Please enter a valid cash amount.
                         </div>
