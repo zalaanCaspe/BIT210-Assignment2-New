@@ -516,16 +516,31 @@ if (forms) {
 
 
 // Dashboard tabs
-function openTable(e, table) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent"); // get all tables
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none"; // hide all tables
+let tabs = select(".tablinks", true);
+if (tabs) {
+  function openTable(e, table) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent"); // get all tables
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none"; // hide all table content
+    }
+    tablinks = document.getElementsByClassName("tablinks"); // get all tab buttons
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", ""); // remove active class
+    }
+    document.getElementById(table).style.display = "block"; // display chosen table
+    e.currentTarget.className += " active"; // set clicked tab to active
   }
-  tablinks = document.getElementsByClassName("tablinks"); // get all tab buttons
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", ""); // remove active class
-  }
-  document.getElementById(table).style.display = "block"; // display chosen table
-  e.currentTarget.className += " active"; // set clicked tab to active
+  document.getElementById("defaultOpen").click();
+}
+
+// to show alert depending on php input
+// hides after 3 seconds
+function showAlert(alertClass) {
+  let alert = document.getElementsByClassName(alertClass)[0];
+  alert.style.display = 'block';
+
+  setTimeout(() => {
+    alert.style.display = 'none';
+  }, 3000);
 }
