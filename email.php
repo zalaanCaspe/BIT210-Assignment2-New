@@ -51,15 +51,11 @@ session_start();
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto " href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="index.php#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="organizations.php">Organizations</a></li>
-          <li><a class="nav-link scrollto active" href="#hero">Appeals</a></li>
-          <li><a class="nav-link scrollto" href="index.php#testimonials">Testimonials</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="applicants.php">Applicants</a></li>
+          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
           <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto " href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -98,24 +94,32 @@ session_start();
     
     
 
-  </main><!-- End #main -->
-
-        <!-- ======= Portfolio Section ======= -->
+    
+    <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
       <div class="container">
-
+        
         <div class="section-title">
           <h2 id="waypoint">Organization Representative Added</h2>
           <p><strong>An email with a default password has been sent to the organization representative.</strong></p>
           <br>
-          <img src="assets/img/email.png" alt="">
-          
+          <img src="assets/img/email.png" alt="" width=100>
         </div>
-    
-    </div>        
-       
-    </section>
 
+        <div class="container">
+          <div class="row text-center">
+            <div class="mx-auto">
+                <button class="btn btn-primary" onclick="location.href='adminDashboard.php'">Dashboard</button>
+                <button class="btn btn-primary" onclick="location.href='add-org-rep-form.php'">Add more Representatives</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>        
+      
+    </section>
+    
+  </main><!-- End #main -->
   <!-- ======= Footer ======= -->
   <footer id="footer">
 

@@ -2,6 +2,15 @@
 
 session_start();
 
+require('dbConnection.php');
+
+$query = "SELECT * FROM applicant WHERE orgID = '$_SESSION[orgID]'";
+$applicants = $con->query($query);
+
+while ($row = $applicants->fetch_assoc()) {
+  echo $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -166,6 +175,8 @@ session_start();
                             </tr>
                         </thead>
                         <tbody>
+
+                          <!--
                             <tr>
                             <th scope="row"><a href="users/syed.jahari0749.php">711016-13-7381</a></th>
                             <td>Ganapathy Jacob A/L Balasubramanyam</td>
@@ -209,7 +220,7 @@ session_start();
                             <tr>
                             <th scope="row"><a href="users/syed.jahari0749.php">011215-90-0266</a></th>
                             <td>Filet Minyon</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                         </table>
                     </div>
