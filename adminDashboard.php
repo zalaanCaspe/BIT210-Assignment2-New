@@ -370,8 +370,8 @@ $reps = $con->query($queryReps);
             echo "<script>showAlert('alert-danger')</script>";
         }
         unset($_SESSION['message']); // clear the value so that it doesn't display again
-  }
-?>
+    }
+  ?>
 </body>
 
 </html>

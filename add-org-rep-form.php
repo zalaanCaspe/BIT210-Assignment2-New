@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+include('dbConnection.php');
+
+$queryOrgs = "SELECT orgID, orgName FROM organization WHERE orgID != '-'";
+$orgs = $con->query($queryOrgs);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,26 +84,40 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Add Organization Representative</h2>
           <ol>
-            <li><a href="../index.php">Home</a></li>
-            <li><a href="../organizations.php">Organizations</a></li>
-            <li>Add Organization Representative</li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="adminDashboard.php">Dashboard</a></li>
+            <li>Add Representative</li>
           </ol>
         </div>
 
       </div>
     </section><!-- End Breadcrumbs -->
-
+    
+    
     <section id="add-org-rep" class="section-bg">
       <div class="container">
+        <div class="alert alert-danger col-4 text-center mx-auto username-taken" role="alert" style="display:none">
+            Username is taken
+        </div>
+        <div class="alert alert-danger col-4 text-center mx-auto mobile-exists" role="alert" style="display:none">
+            Mobile number already in system
+        </div>
+        <div class="alert alert-danger col-4 text-center mx-auto unknown" role="alert" style="display:none">
+            Oops! Something went wrong
+        </div>
         <form method="POST" action="procAddOrgRep.php" class="form col-11 col-lg-7 mx-auto add-organization-rep-form needs-validation" novalidate>
-          <div class="row">
-            <div class="col-lg-4 form-floating mb-3 mt-3">
-              <input type="text" name="orgID" class="form-control" id="org-id" readonly value="ORG001">
-              <label for="org-id">Organization ID</label>
-            </div>
-            <div class="col-lg-8 form-floating mb-3 mt-lg-3">
-              <input type="text" name="orgName" class="form-control" id="org-name" readonly value="Kementerian Kesihatan Malaysia">
-              <label for="org-name">Organization Name</label>
+          <div class="form-floating mb-3 mt-3">
+            <select name="org" id="org" class="form-select" required>
+              <option value="" selected>Choose...</option>
+              <?php
+                  while ($row = $orgs->fetch_assoc()) {
+                      echo "<option value='".$row["orgID"].",".$row["orgName"]."'>".$row['orgID']." - ".$row['orgName']."</option>";
+                  }
+              ?>
+            </select>
+            <label for="org">Organization</label>
+            <div class="invalid-feedback">
+              Please select an Organization
             </div>
           </div>
           <div class="form-floating mb-3">
@@ -226,6 +251,20 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <?php
+  // if session set, (org created), display alert
+    if(isset($_SESSION['message'])){
+        if ($_SESSION['message'] == 'username-taken') {
+            echo "<script>showAlert('username-taken')</script>";
+        }
+        else if ($_SESSION['message'] == 'mobile-exists') {
+            echo "<script>showAlert('mobile-exists')</script>";
+        }
+        else
+            echo "<script>showAlert('unknown')</script>";
+        unset($_SESSION['message']); // clear the value so that it doesn't display again
+    }
+  ?>
 
 </body>
 
