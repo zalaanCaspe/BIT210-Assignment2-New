@@ -1,5 +1,10 @@
 <?php
 session_start();
+include('dbConnection.php');
+
+if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 0) {
+    header('Location:accessDenied.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -98,33 +103,13 @@ session_start();
                         <form method="POST" action="procAddAppeal.php" class="form col-11 mx-auto add-organization-form needs-validation" novalidate>
                             <div class="row">
                                 <div class="col-lg-4 form-floating mb-3 mt-3">
-                                <select name="org-id" id="org-id" class="form-select" value="ORG001" required disabled>
-                                    <option value="">Choose</option>
-                                    <option value="ORG001" selected>ORG001</option>
-                                    <option value="ORG002">ORG002</option>
-                                    <option value="ORG003">ORG003</option>
-                                    <option value="ORG004">ORG004</option>
-                                    <option value="ORG005">ORG005</option>
-                                    <option value="ORG006">ORG006</option>
-                                    <option value="ORG007">ORG007</option>
-                                    <option value="ORG008">ORG008</option>
-                                    <option value="ORG009">ORG009</option>
-                                </select>
+                                <input type="text" name="org-id" id="org-id" class="form-control" placeholder="Organization ID" 
+                                    value="<?php echo $_SESSION['orgID'] ?>" readonly>
                                 <label for="org-id">Organization ID</label>
                                 </div>
                                 <div class="col-lg-8 form-floating mb-3 mt-lg-3">
-                                    <select name="org-name" id="org-name" class="form-select" value="Kementerian Kesihatan Malaysia" required disabled>
-                                    <option value="">Choose</option>
-                                    <option value="Kementerian Kesihatan Malaysia" selected>Kementerian Kesihatan Malaysia</option>
-                                    <option value="MERCY Malaysia">MERCY Malaysia</option>
-                                    <option value="MMHA">MMHA</option>
-                                    <option value="NGOHub">NGOHub</option>
-                                    <option value="Project Wawasan Rakyat">Project Wawasan Rakyat</option>
-                                    <option value="Refuge for the Refugees">Refuge for the Refugees</option>
-                                    <option value="Shelter Home">Shelter Home</option>
-                                    <option value="UM Medical Centre">UM Medical Centre</option>
-                                    <option value="Zoo Negara">Zoo Negara</option>
-                                    </select>
+                                    <input name="org-name" id="org-name" class="form-control"  placeholder="Organization Name" 
+                                    value="<?php echo $_SESSION['orgName'] ?>" readonly>
                                     <label for="org-id">Organization Name</label>
                                 </div>
                             </div>

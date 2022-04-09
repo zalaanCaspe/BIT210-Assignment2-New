@@ -4,6 +4,10 @@ session_start();
 
 include('dbConnection.php');
 
+if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+  header('Location:accessDenied.php');
+}
+
 $queryOrgs = "SELECT orgID, orgName FROM organization WHERE orgID != '-'";
 $orgs = $con->query($queryOrgs);
 

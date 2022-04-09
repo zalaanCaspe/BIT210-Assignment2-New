@@ -2,15 +2,17 @@
 
 session_start();
 
-require('dbConnection.php');
+include('dbConnection.php');
 
-$query = "SELECT * FROM applicant WHERE orgID = '$_SESSION[orgID]'";
-$applicants = $con->query($query);
-
-while ($row = $applicants->fetch_assoc()) {
-  echo $row;
+if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 0) {
+  header('Location:accessDenied.php');
 }
 
+$queryAppeals = "SELECT * FROM appeal WHERE orgID = '".$_SESSION["orgID"]."'";
+$appeals = $con->query($queryAppeals);
+
+// $queryContributions = "SELECT * FROM contribution WHERE contribution.appealID = (SELECT appeal.appealID FROM appeal INNER JOIN organization ON appeal.orgID = organization.orgID)";
+// $contributions = $con->query($queryContributions);
 ?>
 
 <!DOCTYPE html>
@@ -107,10 +109,22 @@ while ($row = $applicants->fetch_assoc()) {
                         echo $_SESSION["fullName"];
                     ?>
                 </h2>
+                <p>
+                  Organization: 
+                  <?php
+                    echo $_SESSION['orgName'];
+                  ?>
+                </P>
+                <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
+                    Appeal added successfully
+                </div>
+                <div class="alert alert-danger col-4 text-center mx-auto" role="alert" style="display:none">
+                    Something went wrong. Please try again
+                </div>
             </div>
 
             <div class="tab">
-                <button class="tablinks" onclick="openTable(event, 'Appeals')">Appeals</button>
+                <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Appeals')">Appeals</button>
                 <button class="tablinks" onclick="openTable(event, 'Contributions')">Contributions</button>
                 <button class="tablinks" onclick="openTable(event, 'Applicants')">Applicants</button>
                 <button class="tablinks" onclick="openTable(event, 'Disbursements')">Disbursements</button>
@@ -118,19 +132,32 @@ while ($row = $applicants->fetch_assoc()) {
 
             <div id="Appeals" class="tabcontent">
                 <div class="row justify-content-center">
-                    <div class="col-md col-lg-7 mt-5 large-table text-center">
+                    <div class="col mt-5 large-table text-center">
                         <button class="btn btn-primary mb-3" onclick="window.location.href='add-appeal.php'">Organize Aid Appeal</button>
                         <table id="appeals" class="table sortable-table" data-table-for="Appeal">
                         <thead class="table-primary">
                             <tr>
-                            <th scope="col" class="col-2">From</th>
-                            <th scope="col" class="col-2">To</th>
+                            <th scope="col" class="col-1">ID</th>
+                            <th scope="col" class="col-2">Title</th>
+                            <th scope="col" class="col-1">From</th>
+                            <th scope="col" class="col-1">To</th>
                             <th scope="col" class="col-6">Description</th>
-                            <th scope="col" class="col-2">Outcome</th>
+                            <th scope="col" class="col-1">Outcome</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            <?php
+                              while ($row = $appeals->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>".$row['appealID']."</td>";
+                                echo "<td>".$row['title']."</td>";
+                                echo "<td>".$row['fromDate']."</td>";
+                                echo "<td>".$row['toDate']."</td>";
+                                echo "<td>".$row['description']."</td>";
+                                echo "<td>".$row['outcome']."</td>";
+                                echo "</tr>";
+                              }
+                            ?>
                         </tbody>
                         </table>
                     </div>
@@ -143,16 +170,31 @@ while ($row = $applicants->fetch_assoc()) {
                         <table id="contributions" class="table sortable-table" data-table-for="Contribution">
                         <thead class="table-primary">
                             <tr>
-                            <th scope="col" class="col-1">ID</th>
-                            <th scope="col" class="col-1">Amount</th>
-                            <th scope="col" class="col-2">Estimated Value</th>
-                            <th scope="col" class="col-4">Description</th>
-                            <th scope="col" class="col-2">Appeal ID</th>
-                            <th scope="col" class="col-2">Date Received</th>
+                              <th scope="col" class="col-1">Contribution ID</th>
+                              <!-- <th scope="col" class="col-1">Goods Type</th> -->
+                              <!-- <th scope="col" class="col-1">Other Goods Type</th> -->
+                              <!-- <th scope="col" class="col-1">Quantity</th> -->
+                              <th scope="col" class="col-4">Goods Description</th>
+                              <th scope="col" class="col-2">Estimated Value</th>
+                              <!-- <th scope="col" class="col-2">Payment Channel</th> -->
+                              <th scope="col" class="col-2">Cash Amount</th>
+                              <th scope="col" class="col-2">Date Received</th>
+                              <th scope="col" class="col-1">Appeal ID</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <?php
+                              // while ($row = $contributions->fetch_assoc()) {
+                              //   echo "<tr>";
+                              //   echo "<td>".$row['contributionID']."</td>";
+                              //   echo "<td>".$row['goodsDescription']."</td>";
+                              //   echo "<td>".$row['estimatedValue']."</td>";
+                              //   echo "<td>".$row['cashAmount']."</td>";
+                              //   echo "<td>".$row['receivedDate']."</td>";
+                              //   echo "<td>".$row['appealID']."</td>";
+                              //   echo "</tr>";
+                              // }
+                            ?>
                         </tbody>
                         </table>
                     </div>
@@ -343,6 +385,19 @@ while ($row = $applicants->fetch_assoc()) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <?php
+  // if session set, (org created), display alert
+  // echo "<script>alert('success')</script>";
+    if(isset($_SESSION['message'])){
+        if ($_SESSION['message'] == 'success') {
+            echo "<script>showAlert('alert-success')</script>";
+        }
+        else {
+            echo "<script>showAlert('alert-danger')</script>";
+        }
+        unset($_SESSION['message']); // clear the value so that it doesn't display again
+    }
+  ?>
 
 </body>
 
