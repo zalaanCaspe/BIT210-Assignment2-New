@@ -42,11 +42,11 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
           <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
-          <li><a class="nav-link scrollto" href="login.php">Login</a></li>
-          <li><a class="nav-link scrollto " href="register.php">Register</a></li>
+          <li><a class="nav-link scrollto active" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto" href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
