@@ -104,7 +104,7 @@ session_start();
           <h2 id="waypoint">We are sorry...</h2>
           <p><strong>The page you are trying to access has restricted access.</strong></p>
           <p><strong>Please log in to gain access.</strong><p>
-          <img src="assets/img/error.png" alt="">
+          <img src="assets/img/error.png" alt="" width=100>
           <br>
           
         </div>
