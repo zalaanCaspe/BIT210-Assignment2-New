@@ -544,3 +544,14 @@ function showAlert(alertClass) {
     alert.style.display = 'none';
   }, 3000);
 }
+
+// to hide login and registration and show logout
+function hideLogin() {
+  let hide = document.getElementsByClassName('toHide');
+  let show = document.getElementsByClassName('toShow');
+  for (i = 0; i < hide.length; i++)
+    hide[i].style.display = 'none';
+
+  for (i = 0; i < show.length; i++)
+    show[i].style.display = 'block';
+}
