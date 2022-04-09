@@ -59,15 +59,10 @@ while ($row = $applicants->fetch_assoc()) {
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" href="index.php#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="organizations.php">Organizations</a></li>
-          <li><a class="nav-link scrollto " href="appeals.php">Appeals</a></li>
-          <li><a class="nav-link scrollto" href="index.php#testimonials">Testimonials</a></li>
-          <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="applicants.php">Applicants</a></li>
-          <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
+          <li><a class="nav-link scrollto" href="logout.php">Log out</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
