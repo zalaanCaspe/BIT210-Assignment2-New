@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,23 +79,26 @@
                   <h2>Login</h2>
                   <p>Don't have an account? <a href="register.php">Register</a> as an applicant!</p>
                 </div>
-                  <form method="POST" action="procLogin.php" class="form px-3 login-form needs-validation" novalidate >
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="username" name="uname" placeholder="Username" required>
-                      <label for="username">Username</label>
-                      <div class="invalid-feedback">
-                        Please enter your username
-                      </div>
+                <div class="alert alert-danger col-11 text-center mx-auto invalid-login" role="alert" style="display:none">
+                    Wrong username or password. Please try again
+                </div>
+                <form method="POST" action="procLogin.php" class="form px-3 login-form needs-validation" novalidate >
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="uname" placeholder="Username" required>
+                    <label for="username">Username</label>
+                    <div class="invalid-feedback">
+                      Please enter your username
                     </div>
-                    <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="password" name="passwd" placeholder="Password" required>
-                      <label for="password">Password</label>
-                      <div class="invalid-feedback">
-                        Please enter your password
-                      </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="passwd" placeholder="Password" required>
+                    <label for="password">Password</label>
+                    <div class="invalid-feedback">
+                      Please enter your password
                     </div>
-                    <input type="submit" class="btn" value="Login">
-                  </form>
+                  </div>
+                  <input type="submit" class="btn" value="Login">
+                </form>
               </div>
             </div>
           </div>
@@ -184,5 +193,15 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <?php
+  // if session set, (org created), display alert
+    if(isset($_SESSION['message'])){
+        if ($_SESSION['message'] == 'invalid-login') {
+            echo "<script>showAlert('invalid-login')</script>";
+        }
+        unset($_SESSION['message']); // clear the value so that it doesn't display again
+    }
+  ?>
 </body>
 </html>

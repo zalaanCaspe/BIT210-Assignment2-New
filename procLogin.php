@@ -30,11 +30,12 @@ $resultApp = $con->query($sqlAppQuery);
 //process
 if ($resultOrgRep -> num_rows > 0) {
     while ($row = $resultOrgRep->fetch_assoc()) { 
-        $_SESSION["fullName"] = $row["fullName"];  
         $_SESSION["username"] = $row["username"];
+        $_SESSION["fullName"] = $row["fullName"];  
         $_SESSION["mobileNo"] = $row["mobileNo"];            
         $_SESSION["title"] = $row["jobTitle"];
         $_SESSION["orgID"] = $row["orgID"]; 
+        $_SESSION["orgName"] = $row["orgName"]; 
         $_SESSION['admin'] = $row['admin'];
         if ($_SESSION['admin'] == 1) {
             header('Location:adminDashboard.php');
@@ -43,17 +44,23 @@ if ($resultOrgRep -> num_rows > 0) {
         }
     }
 } elseif ($resultApp -> num_rows > 0) {
-    while ($row = $resultOrgRep->fetch_assoc()) {               
-        $_SESSION["title"] = $row["jobTitle"];} 
-    echo "<script>
-         alert('Applicant login successful!');
-         window.location.href='users/syed.jahari0749.php';
-         </script>";
+    while ($row = $resultOrgRep->fetch_assoc()) {  
+        $_SESSION["orgName"] = $row["orgName"]; 
+        $_SESSION["fullName"] = $row["fullName"]; 
+        $_SESSION["idNo"] = $row["idNo"]; 
+        $_SESSION["income"] = $row["householdIncome"]; 
+        $_SESSION["address1"] = $row["address1"]; 
+        $_SESSION["address2"] = $row["address2"]; 
+        $_SESSION["city"] = $row["city"]; 
+        $_SESSION["state"] = $row["state"]; 
+        $_SESSION["zip"] = $row["zip"]; 
+        $_SESSION["orgID"] = $row["orgID"]; 
+        $_SESSION["username"] = $row["username"]; 
+        header('Location:applicantDashboard.php');
+    }
 } else {
-    echo "<script>
-         alert('Login failed, please try again!');
-         window.location.href='login.php';
-         </script>";
+    $_SESSION['message'] = 'invalid-login';
+    header('Location:login.php');
 }
     
 $con->close();
