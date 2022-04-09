@@ -292,7 +292,7 @@ session_start();
           <div class="col-md-6">
             <div class="icon-box">
               <i class="bi bi-briefcase"></i>
-              <h4><a href="organizations.php">Manage Organizations</a></h4>
+              <h4><a href="adminDashboard.php">Manage Organizations</a></h4>
               <p>Add a new organization or organization representative</p>
             </div>
           </div>
@@ -306,28 +306,28 @@ session_start();
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-bar-chart"></i>
-              <h4><a href="add-appeal.php">Organize Aid Appeal</a></h4>
+              <h4><a href="orgRepDashboard.php">Organize Aid Appeal</a></h4>
               <p>Record a new appeal for aid</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-binoculars"></i>
-              <h4><a href="appeals.php">View Appeals</a></h4>
+              <h4><a href="donor.php">View Appeals</a></h4>
               <p>View current appeals by various organizations</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-brightness-high"></i>
-              <h4><a href="appeals.php">Record Contributions</a></h4>
+              <h4><a href="contribute.php">Record Contributions</a></h4>
               <p>Make a contribution online or at the organization's premises</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-calendar4-week"></i>
-              <h4><a href="applicants.php">Record Aid Disbursements</a></h4>
+              <h4><a href="disbursement.php">Record Aid Disbursements</a></h4>
               <p>Disburse aid to applicants under your organization</p>
             </div>
           </div>
