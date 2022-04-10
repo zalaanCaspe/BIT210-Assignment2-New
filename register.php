@@ -1,5 +1,8 @@
 <?php
 session_start();
+include('dbCOnnection.php');
+$queryOrgs = "SELECT * FROM organization WHERE orgID LIKE 'ORG%'";
+$orgs = $con->query($queryOrgs);
 ?>
 
 <!DOCTYPE html>
@@ -49,9 +52,8 @@ session_start();
           <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
           <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
-          <li><a class="nav-link scrollto toHide" href="login.php">Login</a></li>
-          <li><a class="nav-link scrollto active toHide" href="register.php">Register</a></li>
-          <li><a class="nav-link scrollto toShow" href="logout.php" style="display:none">Log out</a></li>
+          <li><a class="nav-link scrollto" href="login.php">Login</a></li>
+          <li><a class="nav-link scrollto active" href="register.php">Register</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -77,23 +79,25 @@ session_start();
                     <div class="section-title">
                     <h2>Applicant self-registration</h2>
                     <p>Already have an account? <a href="login.php">Login</a> with your username!</p>
+                    <div class="alert alert-danger col-4 text-center mx-auto id-exists" role="alert" style="display:none">
+                      User ID No. already in the system.
+                    </div>
+                    <div class="alert alert-danger col-4 text-center mx-auto unknown" role="alert" style="display:none">
+                      Oops! Something went wrong
+                    </div>
                     </div>
                     <form method="POST" action="procRegistration.php" class="form row px-3 login-form needs-validation" novalidate>
                         <div class="col-lg-6">
                         <div class="form-floating mb-3">
-                            <select name="org-name" id="org-name" class="form-select" required>
-                            <option value="" selected>Choose</option>
-                            <option value="Kementerian Kesihatan Malaysia">Kementerian Kesihatan Malaysia</option>
-                            <option value="MERCY Malaysia">MERCY Malaysia</option>
-                            <option value="MMHA">MMHA</option>
-                            <option value="NGOHub">NGOHub</option>
-                            <option value="Project Wawasan Rakyat">Project Wawasan Rakyat</option>
-                            <option value="Refuge for the Refugees">Refuge for the Refugees</option>
-                            <option value="Shelter Home">Shelter Home</option>
-                            <option value="UM Medical Centre">UM Medical Centre</option>
-                            <option value="Zoo Negara">Zoo Negara</option>
+                            <select name="org" id="org" class="form-select" required>
+                              <option value="" selected>Choose</option>
+                              <?php
+                                while ($row = $orgs->fetch_array()){
+                                  echo "<option value='".$row['orgID'].",".$row['orgName']."'>".$row['orgID']." - ".$row['orgName']."</option>";
+                                }
+                              ?>
                             </select>
-                            <label for="org-id">Organization Name</label>
+                            <label for="org">Organization</label>
                             <div class="invalid-feedback">
                             Please select an organization to register under
                             </div>
@@ -140,7 +144,7 @@ session_start();
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <select name="states" id="state" class="form-select" required>
+                            <select name="state" id="state" class="form-select" required>
                             <option value="" selected>Choose</option>
                             <option value="Johor">Johor</option>
                             <option value="Kedah">Kedah</option>
@@ -271,6 +275,14 @@ session_start();
   <?php
     if (isset($_SESSION['username']))
       echo "<script>hideLogin()</script>";
+
+    if (isset($_SESSION['message'])) {
+      if ($_SESSION['message'] == 'id-exists')
+        echo "<script>showAlert('id-exists')</script>";
+      else
+        echo "<script>showAlert('unknown')</script>";
+      unset($_SESSION['message']);
+    }
   ?>
 </body>
 </html>

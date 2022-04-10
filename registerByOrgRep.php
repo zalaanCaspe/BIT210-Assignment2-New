@@ -2,6 +2,9 @@
 
 session_start();
 
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] != 0)
+  header('Location:accessDenied.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,44 +80,36 @@ session_start();
                 <div class="justify-content-center register-card">
                     <div class="section-title">
                     <h2>Register an Applicant</h2>
+                    <div class="alert alert-danger col-4 text-center mx-auto id-exists" role="alert" style="display:none">
+                      User ID No. already in the system.
+                    </div>
+                    <div class="alert alert-danger col-4 text-center mx-auto unknown" role="alert" style="display:none">
+                      Oops! Something went wrong
+                    </div>
                     </div>
                     <form method="POST" action="procRegistration.php" class="form row px-3 login-form needs-validation" novalidate>
                         <div class="col-lg-6">
                         <div class="form-floating mb-3">
-                            <select name="org-name" id="org-name" class="form-select" required>
-                            <option value="" selected>Choose</option>
-                            <option value="Kementerian Kesihatan Malaysia">Kementerian Kesihatan Malaysia</option>
-                            <option value="MERCY Malaysia">MERCY Malaysia</option>
-                            <option value="MMHA">MMHA</option>
-                            <option value="NGOHub">NGOHub</option>
-                            <option value="Project Wawasan Rakyat">Project Wawasan Rakyat</option>
-                            <option value="Refuge for the Refugees">Refuge for the Refugees</option>
-                            <option value="Shelter Home">Shelter Home</option>
-                            <option value="UM Medical Centre">UM Medical Centre</option>
-                            <option value="Zoo Negara">Zoo Negara</option>
-                            </select>
-                            <label for="org-id">Organization Name</label>
-                            <div class="invalid-feedback">
-                            Please select an organization to register under
-                            </div>
+                            <input type="text" name="org" id="org" class="form-control" placeholder="Organization" value="<?php echo $_SESSION['orgID']." - ".$_SESSION['orgName']?>" readonly>
+                            <label for="org">Organization</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" name="fullName" class="form-control" id="fullname" placeholder="Full Name" required>
-                            <label for="fullname">Full Name</label>
+                            <input type="text" name="fullName" class="form-control" id="fullName" placeholder="Full Name" required>
+                            <label for="fullName">Full Name</label>
                             <div class="invalid-feedback">
                             Please enter the full name
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" name="idNo" class="form-control" id="id-no" placeholder="ID No." required>
-                            <label for="id-no">ID No.</label>
+                            <input type="text" name="idNo" class="form-control" id="idNo" placeholder="ID No." required>
+                            <label for="idNo">ID No.</label>
                             <div class="invalid-feedback">
                             Please enter an ID number
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" name="householdIncome" class="form-control" id="hh-income" placeholder="Household Income" min="0" required>
-                            <label for="hh-income">Household Income (RM)</label>
+                            <input type="number" name="householdIncome" class="form-control" id="householdIncome" placeholder="Household Income" min="0" required>
+                            <label for="householdIncome">Household Income (RM)</label>
                             <div class="invalid-feedback">
                             Please enter a household income
                             </div>
@@ -133,14 +128,14 @@ session_start();
                             <label for="address2">Address 2</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" name="city" class="form-control" id="org-city" placeholder="City" required>
-                            <label for="org-city">City</label>
+                            <input type="text" name="city" class="form-control" id="city" placeholder="City" required>
+                            <label for="city">City</label>
                             <div class="invalid-feedback">
                             Please enter a city
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <select name="states" id="state" class="form-select" required>
+                            <select name="state" id="state" class="form-select" required>
                             <option value="" selected>Choose</option>
                             <option value="Johor">Johor</option>
                             <option value="Kedah">Kedah</option>
@@ -165,8 +160,8 @@ session_start();
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" name="zipCode" pattern="[0-9]{5}" title="Field must be 5 digits" class="form-control" id="zip" placeholder="Zip" required>
-                            <label for="zip">Zip</label>
+                            <input type="text" name="zipCode" pattern="[0-9]{5}" title="Field must be 5 digits" class="form-control" id="zipCode" placeholder="Zip" required>
+                            <label for="zipCode">Zip</label>
                             <div class="invalid-feedback">
                             Please enter a 5-digit zipcode
                             </div>
@@ -271,6 +266,15 @@ session_start();
   <?php
     if (isset($_SESSION['username']))
       echo "<script>hideLogin()</script>";
+
+    if (isset($_SESSION['message'])) {
+      if ($_SESSION['message'] == 'id-exists')
+        echo "<script>showAlert('id-exists')</script>";
+      else
+        echo "<script>showAlert('unknown')</script>";
+        
+      unset($_SESSION['message']);
+    }
   ?>
 </body>
 </html>
