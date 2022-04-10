@@ -299,7 +299,7 @@ session_start();
           <div class="col-md-6 mt-4 mt-lg-0">
             <div class="icon-box">
               <i class="bi bi-card-checklist"></i>
-              <h4><a href="register.php">Register Applicants</a></h4>
+              <h4><a href="<?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) echo 'registerByOrgRep.php'; else echo 'register.php';?>">Register Applicants</a></h4>
               <p>Register yourself as an aid applicant or seek the help of an organization representative</p>
             </div>
           </div>

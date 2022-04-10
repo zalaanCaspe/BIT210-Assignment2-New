@@ -65,8 +65,25 @@ if ($flag) {
     //execute the query
     $ret = $con->query($sqlQuery);
 
-    if ($ret == TRUE)
+    if ($ret == TRUE) {
+        $_SESSION['add-docs'] = true;
+        $_SESSION['applicant-id'] = $new_idNo;
+        if (!isset($_SESSION['applicant'])) {
+            $_SESSION['applicant'] = true;
+            $_SESSION["orgName"] = $new_orgName; 
+            $_SESSION["fullName"] = $new_fullName; 
+            $_SESSION["idNo"] = $new_idNo; 
+            $_SESSION["income"] = $new_householdIncome; 
+            $_SESSION["address1"] = $new_address1; 
+            $_SESSION["address2"] = $new_address2; 
+            $_SESSION["city"] = $new_city; 
+            $_SESSION["state"] = $new_states; 
+            $_SESSION["zip"] = $new_zipCode; 
+            $_SESSION["orgID"] = $new_orgID; 
+            $_SESSION["username"] = $new_username; 
+        }
         header("Location:applicantDashboard.php");
+    }
     else {
         $_SESSION['message'] = 'unknown';
         echo "<script>history.back(-1)</script>";

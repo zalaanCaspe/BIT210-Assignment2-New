@@ -40,11 +40,12 @@ if ($resultOrgRep -> num_rows > 0) {
         if ($_SESSION['admin'] == 1) {
             header('Location:adminDashboard.php');
         } else {
+            $_SESSION["applicant"] = false;
             header('Location:orgRepDashboard.php');
         }
     }
 } elseif ($resultApp -> num_rows > 0) {
-    while ($row = $resultOrgRep->fetch_assoc()) {  
+    while ($row = $resultApp->fetch_assoc()) {  
         $_SESSION["orgName"] = $row["orgName"]; 
         $_SESSION["fullName"] = $row["fullName"]; 
         $_SESSION["idNo"] = $row["idNo"]; 
@@ -56,6 +57,7 @@ if ($resultOrgRep -> num_rows > 0) {
         $_SESSION["zip"] = $row["zip"]; 
         $_SESSION["orgID"] = $row["orgID"]; 
         $_SESSION["username"] = $row["username"]; 
+        $_SESSION["applicant"] = true;
         header('Location:applicantDashboard.php');
     }
 } else {

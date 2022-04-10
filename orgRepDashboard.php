@@ -218,7 +218,7 @@ $applicants = $con->query($queryApplicants);
                           <?php
                             while($row = $applicants->fetch_assoc()){
                               echo "<tr>";
-                              echo "<td><a href='disbursement.php?applicant=".$row['idNo']."'>".$row['idNo']."</td>";
+                              echo "<td>".$row['idNo']."</td>";
                               echo "<td>".$row['fullName']."</td>";
                               echo "</tr>";
                             }
