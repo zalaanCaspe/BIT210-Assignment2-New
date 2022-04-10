@@ -202,10 +202,10 @@ $reps = $con->query($queryReps);
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Add Organization</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('form').reset()"></button>
           </div>
 
-          <form method="POST" action="procAddOrg.php" class="form col-11 mx-auto add-organization-form needs-validation" novalidate>
+          <form method="POST" action="procAddOrg.php" id="form" class="form col-11 mx-auto add-organization-form needs-validation" novalidate>
             <div class="form-floating mb-3 mt-3">
               <input type="text" name="org-name" class="form-control" id="org-name" placeholder="Organization Name" required>
               <label for="org-name">Organization Name</label>

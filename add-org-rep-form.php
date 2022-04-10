@@ -155,7 +155,7 @@ $orgs = $con->query($queryOrgs);
             </div>
           </div>
           <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary">Cancel</button>
+            <button type="reset" class="btn btn-secondary" onclick="history.back(-1)">Cancel</button>
             <button type="submit" class="btn btn-primary">Add</button>
           </div>
         </form>
