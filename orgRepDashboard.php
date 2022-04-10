@@ -11,8 +11,11 @@ if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 0) {
 $queryAppeals = "SELECT * FROM appeal WHERE orgID = '".$_SESSION["orgID"]."'";
 $appeals = $con->query($queryAppeals);
 
-// $queryContributions = "SELECT * FROM contribution WHERE contribution.appealID = (SELECT appeal.appealID FROM appeal INNER JOIN organization ON appeal.orgID = organization.orgID)";
-// $contributions = $con->query($queryContributions);
+$queryContributions = "SELECT * FROM contribution, appeal WHERE contribution.appealID = appeal.appealID AND appeal.orgID = '".$_SESSION['orgID']."'";
+$contributions = $con->query($queryContributions);
+
+$queryApplicants = "SELECT * FROM applicant WHERE orgID = '".$_SESSION['orgID']."'";
+$applicants = $con->query($queryApplicants);
 ?>
 
 <!DOCTYPE html>
@@ -184,16 +187,16 @@ $appeals = $con->query($queryAppeals);
                         </thead>
                         <tbody>
                             <?php
-                              // while ($row = $contributions->fetch_assoc()) {
-                              //   echo "<tr>";
-                              //   echo "<td>".$row['contributionID']."</td>";
-                              //   echo "<td>".$row['goodsDescription']."</td>";
-                              //   echo "<td>".$row['estimatedValue']."</td>";
-                              //   echo "<td>".$row['cashAmount']."</td>";
-                              //   echo "<td>".$row['receivedDate']."</td>";
-                              //   echo "<td>".$row['appealID']."</td>";
-                              //   echo "</tr>";
-                              // }
+                              while ($row = $contributions->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>".$row['contributionID']."</td>";
+                                echo "<td>".$row['goodsDescription']."</td>";
+                                echo "<td>".$row['estimatedValue']."</td>";
+                                echo "<td>".$row['cashAmount']."</td>";
+                                echo "<td>".$row['receivedDate']."</td>";
+                                echo "<td>".$row['appealID']."</td>";
+                                echo "</tr>";
+                              }
                             ?>
                         </tbody>
                         </table>
@@ -212,52 +215,14 @@ $appeals = $con->query($queryAppeals);
                             </tr>
                         </thead>
                         <tbody>
-
-                          <!--
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">711016-13-7381</a></th>
-                            <td>Ganapathy Jacob A/L Balasubramanyam</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">601012-06-6125</a></th>
-                            <td>Lam Kao Tee</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">720326-15-7296</a></th>
-                            <td>Shoba Ponnusamy A/P Rama</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">880919-01-6148</a></th>
-                            <td>Aleeza Salehudin binti Muhaimen</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">600217-05-7784</a></th>
-                            <td>Nuur Nurnazhimah binti Pa'aing</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">990210-44-0676</a></th>
-                            <td>Amy Leung Chaw Ming</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">000424-09-0749</a></th>
-                            <td>Syed Ahmed bin Jahari</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">851108-38-6832</a></th>
-                            <td>Rani Mogan</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">670119-61-5283</a></th>
-                            <td>Batman bin Suparman</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">001509-91-0275</a></th>
-                            <td>Benjamin Dover</td>
-                            </tr>
-                            <tr>
-                            <th scope="row"><a href="users/syed.jahari0749.php">011215-90-0266</a></th>
-                            <td>Filet Minyon</td>
-                            </tr> -->
+                          <?php
+                            while($row = $applicants->fetch_assoc()){
+                              echo "<tr>";
+                              echo "<td><a href='disbursement.php?applicant=".$row['idNo']."'>".$row['idNo']."</td>";
+                              echo "<td>".$row['fullName']."</td>";
+                              echo "</tr>";
+                            }
+                          ?>
                         </tbody>
                         </table>
                     </div>
