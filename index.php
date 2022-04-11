@@ -313,7 +313,7 @@ session_start();
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-binoculars"></i>
-              <h4><a href="donor.php">View Appeals</a></h4>
+              <h4><a href="donorDashboard.php">View Appeals</a></h4>
               <p>View current appeals by various organizations</p>
             </div>
           </div>
