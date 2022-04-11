@@ -169,7 +169,7 @@ $applicants = $con->query($queryApplicants);
             <div id="Contributions" class="tabcontent">
                 <div class="row justify-content-center">
                     <div class="col-lg mt-5 large-table text-center">
-                        <button class="btn btn-primary mb-3" onclick="window.location.href='contribute.php'">Record Contribution</button>
+                        <button class="btn btn-primary mb-3" onclick="window.location.href='donorDashboard.php'">Record Contribution</button>
                         <table id="contributions" class="table sortable-table" data-table-for="Contribution">
                         <thead class="table-primary">
                             <tr>

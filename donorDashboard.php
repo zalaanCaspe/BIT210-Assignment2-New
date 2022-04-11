@@ -4,13 +4,19 @@ session_start();
 
 include('dbConnection.php');
 
-// $queryAll = 
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
+  $queryCAppeals = "SELECT * FROM appeal WHERE toDate > SYSDATE() AND orgID = '".$_SESSION['orgID']."'";
+  $curAppeals = $con->query($queryCAppeals);
 
-$queryCAppeals = "SELECT * FROM appeal WHERE toDate > SYSDATE() ";
-$curAppeals = $con->query($queryCAppeals);
+  $queryPAppeals = "SELECT * FROM appeal WHERE toDate <= SYSDATE() AND orgID = '".$_SESSION['orgID']."'";
+  $pastAppeals = $con->query($queryPAppeals);
+} else {
+  $queryCAppeals = "SELECT * FROM appeal WHERE toDate > SYSDATE() ";
+  $curAppeals = $con->query($queryCAppeals);
 
-$queryPAppeals = "SELECT * FROM appeal WHERE toDate <= SYSDATE() ";
-$pastAppeals = $con->query($queryPAppeals);
+  $queryPAppeals = "SELECT * FROM appeal WHERE toDate <= SYSDATE() ";
+  $pastAppeals = $con->query($queryPAppeals);
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +26,11 @@ $pastAppeals = $con->query($queryPAppeals);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard</title>
+  <title>
+    <?php
+      if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) echo "Select an appeal"; else echo "Dashboard";
+    ?>
+  </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -86,10 +96,20 @@ $pastAppeals = $con->query($queryPAppeals);
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Dashboard</h2>
+          <h2>
+            <?php
+              if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) echo "Select an appeal"; else echo "Dashboard";
+            ?>
+          </h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <li>Donor Dashboard</li>
+            <?php
+              if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
+                echo "<li><a href=orgRepDashboard.php>Dashboard</a></li>"; 
+                echo "<li>Record Contribution</li>";                 
+              }
+              else echo "<li>Donor Dashboard</li>";
+            ?>
           </ol>
         </div>
 
@@ -105,8 +125,9 @@ $pastAppeals = $con->query($queryPAppeals);
 
             <div class="section-title">
                 <h2>Viewing Appeals</h2>
+                <p>Select a current appeal to contribute to</p>
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
-                    Appeal added successfully
+                    Disbursed successfully
                 </div>
                 <div class="alert alert-danger col-4 text-center mx-auto" role="alert" style="display:none">
                     Something went wrong. Please try again
@@ -119,7 +140,6 @@ $pastAppeals = $con->query($queryPAppeals);
             <div id="Current" class="tabcontent">
                 <div class="row justify-content-center">
                     <div class="col mt-5 large-table text-center">
-                        <button class='btn btn-primary mb-3' onclick='location.href="contribute.php"'>Contribute to an Appeal</button>
                         <table id="current" class="table sortable-table" data-table-for="Current Appeal">
                             <thead class="table-primary">
                                 <tr>
@@ -280,6 +300,9 @@ $pastAppeals = $con->query($queryPAppeals);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <?php
+    if (isset($_SESSION['username']))
+      echo "<script>hideLogin()</script>";
+
   // if session set, (org created), display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){

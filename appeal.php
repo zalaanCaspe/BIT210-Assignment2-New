@@ -174,7 +174,10 @@ if ($org) {
                 </div> -->
                 <br><br>
                 <button class="btn btn-secondary" onclick="history.back(-1)">Back</button>
-                <button class="btn btn-primary" onclick="location.href='contribute.php'">Contribute</button>
+                <?php
+                    if (strtotime($_SESSION['appealTo']) > time())
+                    echo "<button class='btn btn-primary' onclick=\"location.href='contribute.php'\">Contribute</button>";
+                ?>
             </div>
         <!--    <div id="for-rep">
                 <div class="tab">

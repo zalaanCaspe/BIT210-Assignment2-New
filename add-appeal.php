@@ -144,7 +144,7 @@ if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 0) {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" class="btn btn-secondary" onclick="history.back(-1)">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
                         </form>

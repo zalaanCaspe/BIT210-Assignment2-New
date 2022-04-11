@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('dbConnection.php');
 ?>
 
 <!DOCTYPE html>
@@ -94,12 +95,14 @@ session_start();
               <h2>Aid Contribution Form</h2>
               <p class="lead">Insert contribution details here</p>
             </div>
+            <div class="alert alert-danger col-4 text-center mx-auto unknown" role="alert" style="display:none">
+                Oops! Something went wrong
+            </div>
       
             <div class="row">
               <div class="col-md-4 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                  <span class="text-muted">Appeal details</span>
-                  <span class="badge badge-secondary badge-pill">3</span>
+                <h4 class="d-flex justify-content-between align-items-center mb-3 text-muted">
+                  Appeal details
                 </h4>
                 <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -107,35 +110,28 @@ session_start();
                       <h6 class="my-0">Organization name</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">Shelter Home</span>
+                    <span class="text-muted"><?php echo $_SESSION['appealOrgName']?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Organization address</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">No. 9, 1st Floor, Jalan Barat</span>
+                    <span class="text-muted"><?php echo $_SESSION['appealOrgAddress1']?></span> <!-- is the 1st address alone enough? -->
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Appeal start date</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">01 March, 2022</span>
+                    <span class="text-muted"><?php echo date("d M, Y", strtotime($_SESSION['appealFrom']))?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Appeal end date</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">01 April, 2022</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                      <h6 class="my-0">Category</h6>
-                      <small class="text-muted"></small>
-                    </div>
-                    <span class="text-muted">Daily necessities</span>
+                    <span class="text-muted"><?php echo date("d M, Y", strtotime($_SESSION['appealTo']))?></span>
                   </li>
                   
                 </ul>
@@ -143,14 +139,126 @@ session_start();
                 
                 
               </div>
-              <div class="col-md-8 order-md-1">
+
+              
+              <div class="tab">
+                  <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Cash')">Cash Donation</button>
+                  <button class="tablinks toShow" onclick="openTable(event, 'Goods')" style="display:none">Goods</button>
+              </div>
+
+              <div id="Cash" class="col-md-8 order-md-1 tabcontent">
+                <h4 class="mb-3"><strong>Cash contribution</strong></h4>
+                <form method="POST" action="procAddContribution.php" class="needs-validation" novalidate>
+                  <h5 class="mb-3">Payment channel</h4>
+                  <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="bankTransfer" name="paymentMethod" value="bank" type="radio" class="custom-control-input" onclick = "hide('second')" checked>
+                        <label class="custom-control-label" for="bankTransfer">Bank transfer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="credit" name="paymentMethod" value="credit" type="radio" class="custom-control-input" onclick = "hide('first')">
+                      <label class="custom-control-label" for="credit">Credit card</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="debit" name="paymentMethod" value="debit" type="radio" class="custom-control-input" onclick = "hide('first')">
+                      <label class="custom-control-label" for="debit">Debit card</label>
+                    </div>
+                  </div>
+
+                  <div class = "row">
+                    <div class="mb-3">
+                        <label for="cashAmount">Cash amount (RM)<span class="text-muted"></span></label>
+                        <input type="number" name="cashAmount" class="form-control" id="cashAmount" required>
+                        <div class="invalid-feedback">
+                          Please enter a valid cash amount.
+                        </div>
+                    </div>
+                  </div>
+
+            
+                  <!--Bank Transfer-->
+                  <div id = 'first'>
+                    <h5 class="mb-3">Bank transfer</h4>
+                    
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="bank-name">Name of account holder</label>
+                        <input type="text" name="bankName" class="form-control" id="bank-name" placeholder="">
+                        <small class="text-muted">Full name as displayed on NRIC</small>
+                        <div class="invalid-feedback">
+                          Name of account holder is required
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="bank-number">Bank account number</label>
+                        <input type="text" name="bankNo" class="form-control" id="bank-number" placeholder="">
+                        <div class="invalid-feedback">
+                          Bank account number is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div>
+                        <label for="referenceNo">Reference Number</label>
+                        <input type="text" name="refNo" class="form-control" id="referenceNo" placeholder="">
+                        <div class="invalid-feedback">
+                          Reference number required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Credit or Debit Card-->
+                  <div id = 'second' class = 'inactive'>
+                    <br>
+                    <h5 class="mb-3">Credit or debit card</h4>
+                    
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="name">Name on card</label>
+                        <input type="text" name="cardName" class="form-control" id="name" placeholder="">
+                        <small class="text-muted">Full name as displayed on card</small>
+                        <div class="invalid-feedback">
+                          Name on card is required
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="number">Credit card number</label>
+                        <input type="text" name="cardNo" class="form-control" id="number" placeholder="">
+                        <div class="invalid-feedback">
+                          Credit card number is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3 mb-3">
+                        <label for="expiration">Expiration</label>
+                        <input type="text" name="expDate" class="form-control" id="expiration" placeholder="MM/YY">
+                        <div class="invalid-feedback">
+                          Expiration date required
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="cvv">CVV</label>
+                        <input type="text" name="cvv" class="form-control" id="cvv" placeholder="">
+                        <div class="invalid-feedback">
+                          Security code required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button class="btn btn-primary btn-lg btn-block" type="submit">Contribute Now</button>
+                </form>
+              </div>
+
+              <div id="Goods" class="col-md-8 order-md-1 tabcontent">
                 <h4 class="mb-3"><strong>Goods contribution</strong></h4>
                 <form method="POST" action="procAddContribution.php" class="needs-validation" novalidate>
-        
                   <div class="row">
                     <div class="col-md-3 mb-3">
                       <label for="goodsType">Goods type</label>
-                      <select name="goodsType" class="custom-select d-block w-100" id="goodsType" >
+                      <select name="goodsType" class="custom-select d-block w-100" id="goodsType" required>
                         <option value="">Choose...</option>
                         <option>Food</option>
                         <option>Toiletries</option>
@@ -164,14 +272,14 @@ session_start();
                     </div>
                     <div class="col-md-6 mb-6">
                       <label for="otherGoodsType">Other goods type</label>
-                      <input type="text" name="otherType" class="form-control" id="otherGoodsType" placeholder="">
+                      <input type="text" name="otherType" class="form-control" id="otherGoodsType" placeholder="" required>
                       <div class="invalid-feedback">
                         Please enter the type of goods.
                       </div>
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="quantity">Quantity</label>
-                      <input type="number" name="quantity" min="1" class="form-control" id="quantity" placeholder="" >
+                      <input type="number" name="quantity" min="1" class="form-control" id="quantity" placeholder="" required>
                       <div class="invalid-feedback">
                         Please input a valid quantity.
                       </div>
@@ -182,128 +290,18 @@ session_start();
       
                   <div class="mb-3">
                     <label for="description">Goods description<span class="text-muted"></span></label>
-                    <input type="text" name="goodsDesc" class="form-control" id="description" >
+                    <input type="text" name="goodsDesc" class="form-control" id="description" required>
                     <div class="invalid-feedback">
                       Please enter a valid description.
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="estimatedValue">Estimated value (RM)<span class="text-muted"></span></label>
-                    <input type="number" name="value" min="1" class="form-control" id="estimatedValue" >
+                    <input type="number" name="value" min="1" class="form-control" id="estimatedValue" required>
                     <div class="invalid-feedback">
                       Please enter a valid estimated value.
                     </div>
                   </div>
-      
-                  
-                  
-      
-                  <br>
-                  <h4 class="mb-3"><strong>Cash contribution</strong></h4>
-      
-                  <h5 class="mb-3">Payment channel</h4>
-                  <div class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="bankTransfer" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('second')" checked>
-                        <label class="custom-control-label" for="bankTransfer">Bank transfer</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                      <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')">
-                      <label class="custom-control-label" for="credit">Credit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                      <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" onclick = "hide('first')">
-                      <label class="custom-control-label" for="debit">Debit card</label>
-                    </div>
-                    
-                  </div>
-
-                  <div class = "row">
-                    <div class="mb-3">
-                        <label for="cashAmount">Cash amount (RM)<span class="text-muted"></span></label>
-                        <input type="number" name="cashAmount" class="form-control" id="cashAmount">
-                        <div class="invalid-feedback">
-                          Please enter a valid cash amount.
-                        </div>
-                    </div>
-                  </div>
-
-                
-                <!--Bank Transfer-->
-                <div id = 'first'>
-                <br>
-                  <h5 class="mb-3">Bank transfer</h4>
-                  
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="bank-name">Name of account holder</label>
-                      <input type="text" name="bankName" class="form-control" id="bank-name" placeholder="">
-                      <small class="text-muted">Full name as displayed on NRIC</small>
-                      <div class="invalid-feedback">
-                        Name of account holder is required
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="bank-number">Bank account number</label>
-                      <input type="text" name="bankNo" class="form-control" id="bank-number" placeholder="">
-                      <div class="invalid-feedback">
-                        Bank account number is required
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div>
-                      <label for="referenceNo">Reference Number</label>
-                      <input type="text" name="refNo" class="form-control" id="referenceNo" placeholder="">
-                      <div class="invalid-feedback">
-                        Reference number required
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!--Credit or Debit Card-->
-                <div id = 'second' class = 'inactive'>
-                  <br>
-                  <h5 class="mb-3">Credit or debit card</h4>
-                  
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="name">Name on card</label>
-                      <input type="text" name="cardName" class="form-control" id="name" placeholder="">
-                      <small class="text-muted">Full name as displayed on card</small>
-                      <div class="invalid-feedback">
-                        Name on card is required
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="number">Credit card number</label>
-                      <input type="text" name="cardNo" class="form-control" id="number" placeholder="">
-                      <div class="invalid-feedback">
-                        Credit card number is required
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3 mb-3">
-                      <label for="expiration">Expiration</label>
-                      <input type="text" name="expDate" class="form-control" id="expiration" placeholder="MM/YY">
-                      <div class="invalid-feedback">
-                        Expiration date required
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="cvv">CVV</label>
-                      <input type="text" name="cvv" class="form-control" id="cvv" placeholder="">
-                      <div class="invalid-feedback">
-                        Security code required
-                      </div>
-                    </div>
-                  </div>
-
-                  
-                </div>
-                <hr class="mb-4">
                   <button class="btn btn-primary btn-lg btn-block" type="submit">Contribute Now</button>
                 </form>
               </div>
@@ -403,8 +401,14 @@ session_start();
 
 
     <?php
-    if (isset($_SESSION['username']))
-      echo "<script>hideLogin()</script>";
+      if (isset($_SESSION['username']))
+        echo "<script>hideLogin()</script>";
+
+      if (isset($_SESSION['message'])) {
+        if ($_SESSION['message'] == 'unknown')
+          echo "<script>showAlert('unknown')</script>";
+        unset($_SESSION['message']);
+      }
     ?>  
 
 </body>

@@ -460,40 +460,40 @@ if (hideTrigger) {
   }
 }
 
-let addDocsBtn = select('#add-docs');
-if (addDocsBtn) {
-  let btn = document.getElementById('add-docs');
-  function clickAdd() {
-    btn.click();
-  }
+// let addDocsBtn = select('#add-docs');
+// if (addDocsBtn) {
+//   let btn = document.getElementById('add-docs');
+//   function clickAdd() {
+//     btn.click();
+//   }
 
-  function addDocs(filePath) {
-    let table = document.getElementById('docs-table-body')
-    filePath = filePath.split('\\');
-    let fileName = filePath[filePath.length - 1];
-    let a = document.createElement('a');
-    a.appendChild(document.createTextNode(fileName));
-    a.setAttribute('href', 'documets/syed.jahari0749-001.pdf');
-    let newRow = table.insertRow(table.rows.length);
-    newRow.id = "newRow";
-    let file = newRow.insertCell(0);
-    let desc = newRow.insertCell(1);
+//   function addDocs(filePath) {
+//     let table = document.getElementById('docs-table-body')
+//     filePath = filePath.split('\\');
+//     let fileName = filePath[filePath.length - 1];
+//     let a = document.createElement('a');
+//     a.appendChild(document.createTextNode(fileName));
+//     a.setAttribute('href', 'documets/syed.jahari0749-001.pdf');
+//     let newRow = table.insertRow(table.rows.length);
+//     newRow.id = "newRow";
+//     let file = newRow.insertCell(0);
+//     let desc = newRow.insertCell(1);
 
-    file.appendChild(a);
-    desc.innerHTML = "<input type='text' id='doc-desc' placeholder='Add Description' onkeydown='submitDesc(this.value)'>";
-    let btnDiv = document.getElementsByClassName('add-docs')[0];
-  }
+//     file.appendChild(a);
+//     desc.innerHTML = "<input type='text' id='doc-desc' placeholder='Add Description' onkeydown='submitDesc(this.value)'>";
+//     let btnDiv = document.getElementsByClassName('add-docs')[0];
+//   }
 
-  function submitDesc(value) {
-    if (event.keyCode === 13) {
-      let row = document.getElementById('newRow');
-      row.deleteCell(1);
-      let desc = row.insertCell(1);
-      desc.innerHTML = value;
-      row.removeAttribute('id')
-    }
-  }
-}
+//   function submitDesc(value) {
+//     if (event.keyCode === 13) {
+//       let row = document.getElementById('newRow');
+//       row.deleteCell(1);
+//       let desc = row.insertCell(1);
+//       desc.innerHTML = value;
+//       row.removeAttribute('id')
+//     }
+//   }
+// }
 
 
 var forms = document.querySelectorAll('.needs-validation')
