@@ -106,7 +106,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
             <?php
               if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                 echo "<li><a href=orgRepDashboard.php>Dashboard</a></li>"; 
-                echo "<li>Record Contribution</li>";                 
+                echo "<li>View Appeals</li>";                 
               }
               else echo "<li>Donor Dashboard</li>";
             ?>
@@ -125,7 +125,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
 
             <div class="section-title">
                 <h2>Viewing Appeals</h2>
-                <p>Select a current appeal to contribute to</p>
+                <p>Select a current appeal to contribute to or disburse from</p>
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
                     Disbursed successfully
                 </div>

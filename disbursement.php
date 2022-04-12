@@ -1,5 +1,25 @@
 <?php
 session_start();
+include ('dbConnection.php');
+
+
+if ( !isset($_SESSION['applicant-id']) && !isset($_SESSION['appealID'])) {
+    header('Location:accessDenied.php');
+}
+
+$queryApplicant = "SELECT * FROM applicant WHERE idNo = '".$_SESSION['applicant-id']."'";
+
+$applicant = $con->query($queryApplicant);
+
+if ($applicant) {
+    while ($row = $applicant->fetch_assoc()) {
+        $_SESSION['applicant-id'] = $row['idNo'];
+        $_SESSION['applicant-name'] = $row['fullName'];
+        $_SESSION['applicant-address'] = $row['address1'];
+        $_SESSION['applicant-income'] = $row['householdIncome'];
+        $_SESSION['applicant-org'] = $row['orgName'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -107,38 +127,35 @@ session_start();
                       <h6 class="my-0">ID no.</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">000424-09-0749</span>
+                    <span class="text-muted"><?php echo $_SESSION['applicant-id'] ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Name</h6>
                       <small class="text-muted">(as per NRIC)</small>
                     </div>
-                    <span class="text-muted">Syed Ahmad bin Jahari</span>
+                    <span class="text-muted"><?php echo $_SESSION['applicant-name'] ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Address</h6>
                       <small class="text-muted">(current residence)</small>
                     </div>
-                    <span class="text-muted">Block S-00-009,
-                      Subang Perdana Good Year Court 2,
-                      47610 Subang Jaya,
-                      Selangor</span>
+                    <span class="text-muted"><?php echo $_SESSION['applicant-address'] ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Household income</h6>
                       <small class="text-muted">(most recent)</small>
                     </div>
-                    <span class="text-muted">RM 1200</span>
+                    <span class="text-muted">RM <?php echo $_SESSION['applicant-income'] ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Organization name</h6>
                       <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">KKM</span>
+                    <span class="text-muted"><?php echo $_SESSION['applicant-org'] ?></span>
                   </li>
                   
                 </ul>
@@ -170,11 +187,11 @@ session_start();
                       <label for="goodsType">Goods type</label>
                       <select name="goodsType" class="custom-select d-block w-100" id="goodsType" required>
                         <option value="">Choose...</option>
-                        <option>Food</option>
-                        <option>Toiletries</option>
-                        <option>Sanitary Products</option>
-                        <option>Stationery</option>
-                        <option>Other</option>
+                        <option value="Food">Food</option>
+                        <option value="Toiletries">Toiletries</option>
+                        <option value="Sanitary Products">Sanitary Products</option>
+                        <option value="Stationery">Stationery</option>
+                        <option value="Other">Other</option>
                       </select>
                       <div class="invalid-feedback">
                         Please select a valid goods type.

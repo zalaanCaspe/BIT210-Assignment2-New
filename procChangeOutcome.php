@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include ('dbConnection.php');
 
 //Handle user data [submitted via form]
@@ -8,8 +8,6 @@ include ('dbConnection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $new_outcome = $_POST["outcome"];
-
-
 } else {
     echo '<script type ="text/JavaScript">';  
     echo 'alert("Data has not been submitted")';  
@@ -20,20 +18,19 @@ $new_outcome = $_POST["outcome"];
 
 //formulate the query
 //need to retrieve appealID also by Z
-$sqlQuery = "update appeal set outcome = '$new_outcome' where appealID = 'appealID'";
+$sqlQuery = "UPDATE appeal SET outcome = '$new_outcome' WHERE appealID = '".$_SESSION['appealID']."'";
 
 //execute the query
 $ret = $con->query($sqlQuery);
 
-if ($ret == TRUE)
-echo "<script>
-alert('Appeal outcome changed successfully');
-window.location.href='shelterHomeAppeals.php';
-</script>";
+if ($ret == TRUE) {
+    unset($_SESSION['update-outcome']);
+    header('Location:appeal.php?id='.$_SESSION['appealID']);
+}
 else
 echo "<script>
 alert('Appeal outcome not changed, please try again');
-window.location.href='shelterHomeAppeals.php';
+window.location.href='history.back(-1)';
 </script>";
 
 $con->close();

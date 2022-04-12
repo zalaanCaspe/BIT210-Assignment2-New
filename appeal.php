@@ -39,13 +39,10 @@ if ($org) {
     }
 }
 
-// if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
-//     $queryContributions = "SELECT * FROM contribution, appeal WHERE contribution.appealID = appeal.appealID AND appeal.orgID = '".$_SESSION['orgID']."'";
-//     $contributions = $con->query($queryContributions);
-    
-//     $queryApplicants = "SELECT * FROM applicant WHERE orgID = '".$_SESSION['orgID']."'";
-//     $applicants = $con->query($queryApplicants);
-// }
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
+    $queryContributions = "SELECT * FROM contribution WHERE appealID = '".$_SESSION['appealID']."'";
+    $contributions = $con->query($queryContributions);
+}
 ?>
 
 <!DOCTYPE html>
@@ -179,16 +176,19 @@ if ($org) {
                     echo "<button class='btn btn-primary' onclick=\"location.href='contribute.php'\">Contribute</button>";
                 ?>
             </div>
-        <!--    <div id="for-rep">
+            <div id="for-rep">
                 <div class="tab">
-                    <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Contributions')">Contributions</button>
-                    <button class="tablinks" onclick="openTable(event, 'Applicants')">Applicants</button>
+                    <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Contributions')">Current Contributions</button>
                 </div>
                 
                 <div id="Contributions" class="tabcontent">
                     <div class="row justify-content-center">
                         <div class="col-lg mt-5 large-table text-center">
-                            <button class="btn btn-primary mb-3" onclick="window.location.href='contribute.php'">Record Contribution</button>
+                            <button class="btn btn-secondary mb-3" onclick="location.href='orgRepDashboard.php?d=false'">Dashboard</button>
+                            <?php
+                                if (strtotime($_SESSION['appealTo']) > time())
+                                    echo "<button class=\"btn btn-primary mb-3\" onclick=\"window.location.href='orgRepDashboard.php?d=true'\">View Applicants</button>";
+                            ?>
                             <table id="contributions" class="table sortable-table" data-table-for="Contribution">
                                 <thead class="table-primary">
                                     <tr>
@@ -202,58 +202,58 @@ if ($org) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                        // while ($row = $contributions->fetch_assoc()) {
-                                        //     echo "<tr>";
-                                        //     echo "<td>".$row['contributionID']."</td>";
-                                        //     echo "<td>".$row['goodsDescription']."</td>";
-                                        //     echo "<td>".$row['estimatedValue']."</td>";
-                                        //     echo "<td>".$row['cashAmount']."</td>";
-                                        //     echo "<td>".$row['receivedDate']."</td>";
-                                        //     echo "<td>".$row['appealID']."</td>";
-                                        //     echo "</tr>";
-                                        // }
+                                        while ($row = $contributions->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>".$row['contributionID']."</td>";
+                                            echo "<td>".$row['goodsDescription']."</td>";
+                                            echo "<td>".$row['estimatedValue']."</td>";
+                                            echo "<td>".$row['cashAmount']."</td>";
+                                            echo "<td>".$row['receivedDate']."</td>";
+                                            echo "<td>".$row['appealID']."</td>";
+                                            echo "</tr>";
+                                        }
                                     ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div id="Applicants" class="tabcontent">
-                <div class="row justify-content-center">
-                    <div class="col-md col-lg-7 mt-5 large-table text-center">
-                        <button class="btn btn-primary mb-3" onclick="window.location.href='registerByOrgRep.php'">Register an Applicant</button>
-                        <table id="applicants" class="table sortable-table" data-table-for="Applicant">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th scope="col" class="col-3">ID Number</th>
-                                    <th scope="col" class="col-5">Full Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    // while($row = $applicants->fetch_assoc()){
-                                    //     echo "<tr>";
-                                    //     echo "<td>".$row['idNo']."</td>";
-                                    //     echo "<td>".$row['fullName']."</td>";
-                                    //     echo "</tr>";
-                                    // }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
-        </div> -->
+        </div>
         
     </div>
-</section><!-- End Applicants Section -->
+</section>
       </div>
     </section>
-    
-      <!-- Add applicant button (leads to registration) -->
-      <a href="#" class="add-btn d-flex align-items-center justify-content-center">
-        <i class="bi bi-plus-circle-fill"></i>
-      </a>
+    <div class="modal fade" id="modal-form-backdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Update Outcome</h5>
+          </div>
+          <button id="toggle-modal" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-form-backdrop" style="display:none"></button>
+          <form method="POST" action="procChangeOutcome.php" id="form" class="form col-11 mx-auto needs-validation" novalidate>
+            <div class="form-floating mb-3">
+              <select name="outcome" id="outcome" class="form-select" required>
+                <option value="" selected>Choose</option>
+                <option value="Incomplete">Incomplete</option>
+                <option value="Partially Disbursed">Partially Disbursed</option>
+                <option value="Completed">Completed</option>
+                <option value="Overdraft">Overdraft</option>
+              </select>
+              <label for="outcome">Outcome</label>
+              <div class="invalid-feedback">
+                Please select an outocme
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
 
   </main><!-- End #main -->
 
@@ -328,7 +328,7 @@ if ($org) {
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></scrip>
+  <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -345,7 +345,7 @@ if ($org) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <?php
-  // if session set, (org created), display alert
+  // if session set, display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){
         if ($_SESSION['message'] == 'success') {
@@ -355,6 +355,10 @@ if ($org) {
             echo "<script>showAlert('alert-danger')</script>";
         }
         unset($_SESSION['message']); // clear the value so that it doesn't display again
+    }
+
+    if (isset($_SESSION['update-outcome'])) {
+        echo "<script>document.getElementById('toggle-modal').click()</script>";
     }
   ?>
 

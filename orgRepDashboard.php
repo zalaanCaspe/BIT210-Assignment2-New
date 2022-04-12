@@ -16,6 +16,15 @@ $contributions = $con->query($queryContributions);
 
 $queryApplicants = "SELECT * FROM applicant WHERE orgID = '".$_SESSION['orgID']."'";
 $applicants = $con->query($queryApplicants);
+
+$queryDisbursements = "SELECT * FROM disbursement, appeal WHERE disbursement.appealID = appeal.appealID AND appeal.orgID = '".$_SESSION['orgID']."'";
+$disbursements = $con->query($queryDisbursements);
+
+if (isset($_GET['d']) && $_GET['d'] == 'true') {
+  $_SESSION['disburse'] = true;
+} else {
+  unset($_SESSION['disburse']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +127,13 @@ $applicants = $con->query($queryApplicants);
                     echo $_SESSION['orgName'];
                   ?>
                 </P>
+                <p>
+                  <?php
+                    if (isset($_SESSION['disburse'])) {
+                      echo "<strong>Select an applicant to disburse Aid to</strong>";
+                    }
+                  ?>
+                </p>
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
                     Appeal added successfully
                 </div>
@@ -129,7 +145,7 @@ $applicants = $con->query($queryApplicants);
             <div class="tab">
                 <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Appeals')">Appeals</button>
                 <button class="tablinks" onclick="openTable(event, 'Contributions')">Contributions</button>
-                <button class="tablinks" onclick="openTable(event, 'Applicants')">Applicants</button>
+                <button class="tablinks" id="applicantTab" onclick="openTable(event, 'Applicants')">Applicants</button>
                 <button class="tablinks" onclick="openTable(event, 'Disbursements')">Disbursements</button>
             </div>
 
@@ -218,7 +234,12 @@ $applicants = $con->query($queryApplicants);
                           <?php
                             while($row = $applicants->fetch_assoc()){
                               echo "<tr>";
-                              echo "<td>".$row['idNo']."</td>";
+                              
+                              if (isset($_SESSION['disburse'])) {
+                                echo "<td><a href='applicantDashboard.php?applicant=".$row['idNo']."'>".$row['idNo']."</a></td>";
+                              } else {
+                                echo "<td>".$row['idNo']."</td>";
+                              }
                               echo "<td>".$row['fullName']."</td>";
                               echo "</tr>";
                             }
@@ -231,20 +252,29 @@ $applicants = $con->query($queryApplicants);
             <div id="Disbursements" class="tabcontent">
                 <div class="row justify-content-center">
                     <div class="col-lg mt-5 large-table text-center">
-                    <button class="btn btn-primary mb-3" onclick="window.location.href='disbursement.php'">Record Disbursement</button>
+                    <button class="btn btn-primary mb-3" onclick="window.location.href='donorDashboard.php'">Record Disbursement</button>
                     <table id="disbursements" class="table sortable-table" data-table-for="Disbursement">
                     <thead class="table-primary">
                         <tr>
                         <th scope="col" class="col-1">Date</th>
-                        <th scope="col" class="col-1">ID</th>
                         <th scope="col" class="col-2">Cash Amount</th>
-                        <th scope="col" class="col-4">Goods</th>
+                        <th scope="col" class="col-5">Goods</th>
                         <th scope="col" class="col-2">Appeal ID</th>
                         <th scope="col" class="col-2">Applicant ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php
+                          while ($row = $disbursements->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>".$row['disbursementDate']."</td>";
+                            echo "<td>".$row['cashAmount']."</td>";
+                            echo "<td>".$row['goodsDescription']."</td>";
+                            echo "<td>".$row['appealID']."</td>";
+                            echo "<td>".$row['idNo']."</td>";
+                            echo "</tr>";
+                          }
+                        ?>
                     </tbody>
                     </table>
                 </div>
@@ -351,6 +381,9 @@ $applicants = $con->query($queryApplicants);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <?php
+    if (isset($_SESSION['disburse']) && $_SESSION['disburse'] == true) {
+      echo "<script>document.getElementById('applicantTab').click()</script>";
+    }
   // if session set, (org created), display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){

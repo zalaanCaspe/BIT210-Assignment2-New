@@ -5,14 +5,14 @@ session_start();
 include('dbConnection.php');
 
 // if not applicant logging in nor redirected from registration nor visiting as rep
-// if (!$_SESSION['applicant'] == true && !isset($_SESSION['self']) && !isset($_GET['applicant'])) {
-//   header('Location:accessDenied.php');
-// }
+if (!$_SESSION['applicant'] == true && !isset($_SESSION['self']) && !isset($_GET['applicant'])) {
+  header('Location:accessDenied.php');
+}
 
 // to check which applicant's dashboard if org rep visits
-// if(isset($_GET['applicant']) ){
-//     $_SESSION['applicant-id']=$_GET['applicant'];
-// }
+if(isset($_GET['applicant']) ){
+    $_SESSION['applicant-id']=$_GET['applicant'];
+}
 
 if (!isset($_SESSION['applicant'])) {
     header("Location:accessDenied.php");
@@ -156,6 +156,12 @@ $docs = $con->query($queryDocs);
                         echo ",<br>".$_SESSION['zip']." ".$_SESSION['city'].",<br>".$_SESSION['state'];
                     ?>
                 </p>
+                <br>
+                <button id='back' class="btn btn-secondary mb-3" onclick="location.href='orgRepDashBoard.php'">Back to Dashboard</button>
+                <?php
+                    if ($_SESSION['applicant'] == true)
+                        echo "<script>document.getElementById('back').style.display = 'none'</script>";
+                ?>
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
                     Document added successfully
                 </div>
@@ -203,11 +209,6 @@ $docs = $con->query($queryDocs);
                 <div class="row justify-content-center">
                     <div class="col-8 mt-5 large-table text-center">
                         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-form-backdrop">Add Documents</button>
-                        <button id='back' class="btn btn-secondary mb-3" onclick="location.href='orgRepDashBoard.php'">Back to Dashboard</button>
-                        <?php
-                            if ($_SESSION['applicant'] == true)
-                                echo "<script>document.getElementById('back').style.display = 'none'</script>";
-                        ?>
                         <table id="documents" class="table sortable-table" data-table-for="Document">
                         <thead class="table-primary">
                             <tr>
