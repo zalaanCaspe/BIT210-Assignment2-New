@@ -54,9 +54,9 @@ include('dbConnection.php');
         <ul>
           <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto" href="contribute.php">Contribute</a></li>
+          <li><a class="nav-link scrollto active toHide" href="donorDashboard.php">Become a Donor</a></li>
           <li><a class="nav-link scrollto toHide" href="login.php">Login</a></li>
-          <li><a class="nav-link scrollto active toHide" href="register.php">Register</a></li>
+          <li><a class="nav-link scrollto toHide" href="register.php">Register</a></li>
           <li><a class="nav-link scrollto toShow" href="logout.php" style="display:none">Log out</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
