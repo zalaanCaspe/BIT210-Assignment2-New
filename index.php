@@ -327,7 +327,7 @@ session_start();
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-calendar4-week"></i>
-              <h4><a href="viewAppeals.php">Record Aid Disbursements</a></h4>
+              <h4><a href="<?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) echo 'viewAppeals.php'; else echo 'accessDenied.php';?>">Record Aid Disbursements</a></h4>
               <p>Disburse aid to applicants under your organization</p>
             </div>
           </div>
