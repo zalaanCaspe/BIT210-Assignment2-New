@@ -273,7 +273,7 @@ include('dbConnection.php');
                     </div>
                     <div class="col-md-6 mb-6">
                       <label for="otherGoodsType">Other goods type</label>
-                      <input type="text" name="otherType" class="form-control" id="otherGoodsType" placeholder="" required>
+                      <input type="text" name="otherType" class="form-control" id="otherGoodsType" placeholder="">
                       <div class="invalid-feedback">
                         Please enter the type of goods.
                       </div>
