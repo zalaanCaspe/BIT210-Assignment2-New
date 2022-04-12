@@ -122,7 +122,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
           <ol>
             <li><a href="index.php">Home</a></li>
             <li><a href="viewAppeals.php">All Appeals</a></li>
-            <li>Appeal</li>
+            <li>Appeal <?php echo $_SESSION['appealID']?></li>
           </ol>
         </div>
 
@@ -176,7 +176,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                     echo "<button class='btn btn-primary' onclick=\"location.href='contribute.php'\">Contribute</button>";
                 ?>
             </div>
-            <div id="for-rep">
+            <div id="for-rep" style="display:none">
                 <div class="tab">
                     <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Contributions')">Current Contributions</button>
                 </div>
@@ -202,6 +202,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                                 </thead>
                                 <tbody>
                                     <?php
+                                      if (isset($_SESSION['username'])) {
                                         while ($row = $contributions->fetch_assoc()) {
                                             echo "<tr>";
                                             echo "<td>".$row['contributionID']."</td>";
@@ -212,6 +213,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                                             echo "<td>".$row['appealID']."</td>";
                                             echo "</tr>";
                                         }
+                                      }
                                     ?>
                                 </tbody>
                             </table>
@@ -345,8 +347,10 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <?php
-    if (isset($_SESSION['username']))
+    if (isset($_SESSION['username'])) {
       echo "<script>hideLogin()</script>";
+      echo "<script>document.getElementById('for-rep').style.display='block'</script>";
+    }
   // if session set, display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){

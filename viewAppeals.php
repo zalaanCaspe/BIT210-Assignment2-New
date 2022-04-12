@@ -26,11 +26,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>
-    <?php
-      if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) echo "Select an appeal"; else echo "Dashboard";
-    ?>
-  </title>
+  <title>Viewing Appeals</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 

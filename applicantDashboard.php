@@ -115,11 +115,11 @@ $docs = $con->query($queryDocs);
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2><?php if ($_SESSION['applicant'] == false) echo 'Applicant'; else echo 'Dashboard';?></h2>
+          <h2><?php if ($_SESSION['applicant'] == false) echo 'Applicant: '.$_SESSION['applicantName']; else echo 'Dashboard';?></h2>
           <ol>
             <li><a href="index.php">Home</a></li>
             <?php if ($_SESSION['applicant'] == false) echo '<li><a href="orgRepDashboard.php">Dashboard</a></li>'?>
-            <li><?php if ($_SESSION['applicant'] == false) echo 'Applicant'; else echo 'Dashboard';?></li>
+            <li><?php if ($_SESSION['applicant'] == false) echo $_SESSION['applicantName']; else echo 'Dashboard';?></li>
           </ol>
         </div>
 

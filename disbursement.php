@@ -98,10 +98,11 @@ if ($applicant) {
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Disburse Aid to Applicant</h2>
+          <h2>Disburse Aid to <?php echo $_SESSION['applicantName']?></h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <li><a href="applicants.php">Applicants</a></li>
+            <li><a href="orgRepDashboard.php">Dashboard</a></li>
+            <li><?php echo "<a href='applicantDashboard.php?applicant=".$_SESSION['idNo']."'>".$_SESSION['applicantName']."</a>"?></li>
             <li>Disburse Aid</li>
           </ol>
         </div>
