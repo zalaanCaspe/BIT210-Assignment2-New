@@ -31,6 +31,7 @@ $ret = $con->query($sqlQuery);
 
 if ($ret == TRUE) {
     $_SESSION['update-outcome'] = true;
+    $_SESSION['message'] = 'disbSuccess';
     header("Location:appeal.php?id=".$_SESSION['appealID']);
 }
 else

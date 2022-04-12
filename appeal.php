@@ -177,17 +177,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                 ?>
             </div>
             <div id="for-rep" style="display:none">
-                <div class="tab">
-                    <button class="tablinks" id="defaultOpen" onclick="openTable(event, 'Contributions')">Current Contributions</button>
-                </div>
-                
-                <div id="Contributions" class="tabcontent">
+                <div id="Contributions">
                     <div class="row justify-content-center">
                         <div class="col-lg mt-5 large-table text-center">
                             <button class="btn btn-secondary mb-3" onclick="location.href='orgRepDashboard.php?d=false'">Dashboard</button>
                             <?php
                                 if (strtotime($_SESSION['appealTo']) > time())
-                                    echo "<button class=\"btn btn-primary mb-3\" onclick=\"window.location.href='orgRepDashboard.php?d=true'\">View Applicants</button>";
+                                    echo "<button class=\"btn btn-primary mb-3\" onclick=\"window.location.href='orgRepDashboard.php?d=true'\">View Applicants to Disburse to</button>";
                             ?>
                             <table id="contributions" class="table sortable-table" data-table-for="Contribution">
                                 <thead class="table-primary">

@@ -136,6 +136,9 @@ if (isset($_GET['d']) && $_GET['d'] == 'true') {
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
                     Appeal added successfully
                 </div>
+                <div class="alert alert-success col-4 text-center mx-auto contSuccess" role="alert" style="display:none">
+                    Contribution added successfully
+                </div>
                 <div class="alert alert-danger col-4 text-center mx-auto" role="alert" style="display:none">
                     Something went wrong. Please try again
                 </div>
@@ -386,13 +389,16 @@ if (isset($_GET['d']) && $_GET['d'] == 'true') {
   // if session set, (org created), display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){
-        if ($_SESSION['message'] == 'success') {
-            echo "<script>showAlert('alert-success')</script>";
-        }
-        else {
-            echo "<script>showAlert('alert-danger')</script>";
-        }
-        unset($_SESSION['message']); // clear the value so that it doesn't display again
+      if ($_SESSION['message'] == 'success') {
+          echo "<script>showAlert('alert-success')</script>";
+      }
+      if ($_SESSION['message'] == 'contSuccess') {
+          echo "<script>showAlert('contSuccess')</script>";
+      }
+      else {
+          echo "<script>showAlert('alert-danger')</script>";
+      }
+      unset($_SESSION['message']); // clear the value so that it doesn't display again
     }
   ?>
 

@@ -62,12 +62,13 @@ if ($_POST['paymentMethod'] == "bank") {
 //execute the query
 $ret = $con->query($sqlQuery);
 
-if ($ret == TRUE)
+if ($ret == TRUE) {
+    $_SESSION['message'] = 'contSuccess';
     if (isset($_SESSION['admin']))
         header('Location:orgRepDashboard.php');
     else
-        header('Location:index.php');
-else  {
+        header('Location:viewAppeals.php');
+} else  {
     $_SESSION['message'] = "unknown";
     header('Location:contribute.php');
 }

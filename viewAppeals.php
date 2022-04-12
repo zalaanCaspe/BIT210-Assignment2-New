@@ -122,8 +122,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
             <div class="section-title">
                 <h2>Viewing Appeals</h2>
                 <p>Select a current appeal to contribute to or disburse from</p>
-                <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
+                <div class="alert alert-success col-4 text-center mx-auto disbSuccess" role="alert" style="display:none">
                     Disbursed successfully
+                </div>
+                <div class="alert alert-success col-4 text-center mx-auto contSuccess" role="alert" style="display:none">
+                    Thank you for your contribution!
                 </div>
                 <div class="alert alert-danger col-4 text-center mx-auto" role="alert" style="display:none">
                     Something went wrong. Please try again
@@ -302,13 +305,16 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
   // if session set, (org created), display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){
-        if ($_SESSION['message'] == 'success') {
-            echo "<script>showAlert('alert-success')</script>";
-        }
-        else {
-            echo "<script>showAlert('alert-danger')</script>";
-        }
-        unset($_SESSION['message']); // clear the value so that it doesn't display again
+      if ($_SESSION['message'] == 'contSuccess') {
+          echo "<script>showAlert('contSuccess')</script>";
+      }
+      elseif ($_SESSION['message'] == 'disbSuccess') {
+          echo "<script>showAlert('disbSuccess')</script>";
+      }
+      else {
+          echo "<script>showAlert('alert-danger')</script>";
+      }
+      unset($_SESSION['message']); // clear the value so that it doesn't display again
     }
   ?>
 
