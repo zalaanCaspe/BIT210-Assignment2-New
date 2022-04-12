@@ -320,14 +320,14 @@ session_start();
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-brightness-high"></i>
-              <h4><a href="contribute.php">Record Contributions</a></h4>
+              <h4><a href="donorDashboard.php">Record Contributions</a></h4>
               <p>Make a contribution online or at the organization's premises</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-calendar4-week"></i>
-              <h4><a href="disbursement.php">Record Aid Disbursements</a></h4>
+              <h4><a href="donorDashboard.php">Record Aid Disbursements</a></h4>
               <p>Disburse aid to applicants under your organization</p>
             </div>
           </div>
