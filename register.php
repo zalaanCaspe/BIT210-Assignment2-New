@@ -94,7 +94,7 @@ $orgs = $con->query($queryOrgs);
                               <option value="" selected>Choose</option>
                               <?php
                                 while ($row = $orgs->fetch_array()){
-                                  echo "<option value='".$row['orgID'].",".$row['orgName']."'>".$row['orgID']." - ".$row['orgName']."</option>";
+                                  echo "<option value='".$row['orgID']." - ".$row['orgName']."'>".$row['orgID']." - ".$row['orgName']."</option>";
                                 }
                               ?>
                             </select>

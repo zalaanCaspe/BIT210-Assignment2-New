@@ -5,8 +5,8 @@ include ('dbConnection.php');
 //Handle user data [submitted via form]
 //Retrieve values through POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $new_orgID = explode(",", $_POST["org"], 2)[0];
-    $new_orgName = explode(",", $_POST["org"], 2)[1];
+    $new_orgID = explode(" - ", $_POST["org"], 2)[0];
+    $new_orgName = explode(" - ", $_POST["org"], 2)[1];
     $new_fullName = $_POST["fullName"];
     $new_idNo = $_POST["idNo"];
     $new_householdIncome = $_POST["householdIncome"];
