@@ -5,8 +5,9 @@ session_start();
 include('dbConnection.php');
 
 // if not applicant logging in nor redirected from registration nor visiting as rep
-if (!$_SESSION['applicant'] == true && !isset($_SESSION['self']) && !isset($_GET['applicant'])) {
-  header('Location:accessDenied.php');
+if (!$_SESSION['applicant'] == 'true' && !isset($_SESSION['self']) && !isset($_GET['applicant'])) {
+  // echo "<script>alert('".$_SESSION["applicant"]."')</script>";
+  header("Location:accessDenied.php");
 }
 
 // to check which applicant's dashboard if org rep visits
@@ -16,7 +17,7 @@ if(isset($_GET['applicant']) ){
 
 if (!isset($_SESSION['applicant'])) {
     header("Location:accessDenied.php");
-} elseif ($_SESSION['applicant'] == true) {
+} elseif ($_SESSION['applicant'] == 'true') {
     $_SESSION['applicantName'] = $_SESSION['fullName'];
     $_SESSION['applicantUName'] = $_SESSION['username'];
     $queryDisbursements = "SELECT * FROM disbursement WHERE idNo = '".$_SESSION['idNo']."'";
@@ -115,11 +116,11 @@ $docs = $con->query($queryDocs);
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2><?php if ($_SESSION['applicant'] == false) echo 'Applicant: '.$_SESSION['applicantName']; else echo 'Dashboard';?></h2>
+          <h2><?php if ($_SESSION['applicant'] == 'false') echo 'Applicant: '.$_SESSION['applicantName']; else echo 'Dashboard';?></h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <?php if ($_SESSION['applicant'] == false) echo '<li><a href="orgRepDashboard.php">Dashboard</a></li>'?>
-            <li><?php if ($_SESSION['applicant'] == false) echo $_SESSION['applicantName']; else echo 'Dashboard';?></li>
+            <?php if ($_SESSION['applicant'] == 'false') echo '<li><a href="orgRepDashboard.php">Dashboard</a></li>'?>
+            <li><?php if ($_SESSION['applicant'] == 'false') echo $_SESSION['applicantName']; else echo 'Dashboard';?></li>
           </ol>
         </div>
 
@@ -135,7 +136,7 @@ $docs = $con->query($queryDocs);
             <div class="section-title">
                 <h2>
                     <?php
-                        if ($_SESSION['applicant'] == true)
+                        if ($_SESSION['applicant'] == 'true')
                             echo 'Welcome, ';
                         echo $_SESSION["applicantName"];
                     ?>
@@ -158,7 +159,7 @@ $docs = $con->query($queryDocs);
                 <br>
                 <button id='back' class="btn btn-secondary mb-3" onclick="location.href='orgRepDashBoard.php'">Back to Dashboard</button>
                 <?php
-                    if ($_SESSION['applicant'] == true)
+                    if ($_SESSION['applicant'] == 'true')
                         echo "<script>document.getElementById('back').style.display = 'none'</script>";
                 ?>
                 <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
@@ -177,7 +178,7 @@ $docs = $con->query($queryDocs);
             <div id="Disbursements" class="tabcontent">
                 <div class="row justify-content-center">
                     <div class="col-lg mt-5 large-table text-center">
-                        <?php if ($_SESSION['applicant'] == false) echo "<button class='btn btn-primary mb-3' onclick='location.href=\"disbursement.php\"'>Disburse Aid</button>"?>
+                        <?php if ($_SESSION['applicant'] == 'false') echo "<button class='btn btn-primary mb-3' onclick='location.href=\"disbursement.php\"'>Disburse Aid</button>"?>
                         <table id="disbursements" class="table sortable-table" data-table-for="Disbursement">
                         <thead class="table-primary">
                             <tr>
