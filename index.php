@@ -57,7 +57,7 @@ session_start();
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto toHide" href="donorDashboard.php">Become a Donor</a></li>
+          <li><a class="nav-link scrollto toHide" href="viewAppeals.php">Become a Donor</a></li>
           <li><a class="nav-link scrollto toHide" href="login.php">Login</a></li>
           <li><a class="nav-link scrollto toHide" href="register.php">Register</a></li>
           <li><a class="nav-link scrollto toShow" href="logout.php" style="display:none">Log out</a></li>
@@ -313,21 +313,21 @@ session_start();
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-binoculars"></i>
-              <h4><a href="donorDashboard.php">View Appeals</a></h4>
+              <h4><a href="viewAppeals.php">View Appeals</a></h4>
               <p>View current appeals by various organizations</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-brightness-high"></i>
-              <h4><a href="donorDashboard.php">Record Contributions</a></h4>
+              <h4><a href="viewAppeals.php">Record Contributions</a></h4>
               <p>Make a contribution online or at the organization's premises</p>
             </div>
           </div>
           <div class="col-md-6 mt-4">
             <div class="icon-box">
               <i class="bi bi-calendar4-week"></i>
-              <h4><a href="donorDashboard.php">Record Aid Disbursements</a></h4>
+              <h4><a href="viewAppeals.php">Record Aid Disbursements</a></h4>
               <p>Disburse aid to applicants under your organization</p>
             </div>
           </div>

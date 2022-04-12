@@ -93,7 +93,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
         <ul>
           <li><a class="nav-link scrollto" href="index.php#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
-          <li><a class="nav-link scrollto active toHide" href="donorDashboard.php">Become a Donor</a></li>
+          <li><a class="nav-link scrollto active toHide" href="viewAppeals.php">Become a Donor</a></li>
           <li><a class="nav-link scrollto toHide" href="login.php">Login</a></li>
           <li><a class="nav-link scrollto toHide" href="register.php">Register</a></li>
           <li><a class="nav-link scrollto toShow" href="logout.php" style="display:none">Log out</a></li>
@@ -121,7 +121,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
           <h2>Appeal</h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <li><a href="donorDashboard.php">All Appeals</a></li>
+            <li><a href="viewAppeals.php">All Appeals</a></li>
             <li>Appeal</li>
           </ol>
         </div>
