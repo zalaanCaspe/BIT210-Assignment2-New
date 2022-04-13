@@ -35,11 +35,11 @@ $queryCreateAppeal = "INSERT INTO appeal VALUES ('$new_ID', '$new_orgID', '$new_
 $ret = $con->query($queryCreateAppeal);
 
 if ($ret == TRUE) {
-    $_SESSION['message'] = "success"; // message to show
+    $_SESSION['message'] = "appeal-success"; // message to show
     header('Location:orgRepDashboard.php');
 }
 else {
-    $_SESSION['message'] = "failed";
+    $_SESSION['message'] = "appeal-fail";
     header('Location:orgRepDashboard.php');
 }
 

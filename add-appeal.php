@@ -81,7 +81,7 @@ if ( !isset($_SESSION['admin']) || $_SESSION['admin'] != 0) {
                     <h2>Add Appeal</h2>
                     <ol>
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="appeals.php">Appeals</a></li>
+                        <li><a href="viewAppeals.php">Appeals</a></li>
                         <li>Add Appeal</li>
                     </ol>
                 </div>

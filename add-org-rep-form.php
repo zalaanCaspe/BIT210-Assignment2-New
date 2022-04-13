@@ -264,7 +264,7 @@ $orgs = $con->query($queryOrgs);
         if ($_SESSION['message'] == 'username-taken') {
             echo "<script>showAlert('username-taken')</script>";
         }
-        else if ($_SESSION['message'] == 'mobile-exists') {
+        elseif ($_SESSION['message'] == 'mobile-exists') {
             echo "<script>showAlert('mobile-exists')</script>";
         }
         else

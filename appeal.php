@@ -163,12 +163,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
                         echo ",<br>".$_SESSION['appealOrgZip']." ".$_SESSION['appealOrgCity'].",<br>".$_SESSION['appealOrgState'];
                     ?>
                 </p>
-                <!-- <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
-                    Appeal added successfully
-                </div>
-                <div class="alert alert-danger col-4 text-center mx-auto" role="alert" style="display:none">
-                    Something went wrong. Please try again
-                </div> -->
                 <br><br>
                 <button class="btn btn-secondary" onclick="history.back(-1)">Back</button>
                 <?php
@@ -346,17 +340,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
     if (isset($_SESSION['username'])) {
       echo "<script>hideLogin()</script>";
       echo "<script>document.getElementById('for-rep').style.display='block'</script>";
-    }
-  // if session set, display alert
-  // echo "<script>alert('success')</script>";
-    if(isset($_SESSION['message'])){
-        if ($_SESSION['message'] == 'success') {
-            echo "<script>showAlert('alert-success')</script>";
-        }
-        else {
-            echo "<script>showAlert('alert-danger')</script>";
-        }
-        unset($_SESSION['message']); // clear the value so that it doesn't display again
     }
 
     if (isset($_SESSION['update-outcome'])) {

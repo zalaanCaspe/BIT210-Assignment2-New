@@ -133,7 +133,7 @@ if (isset($_GET['d']) && $_GET['d'] == 'true') {
                     }
                   ?>
                 </p>
-                <div class="alert alert-success col-4 text-center mx-auto" role="alert" style="display:none">
+                <div class="alert alert-success col-4 text-center mx-auto appeal-success" role="alert" style="display:none">
                     Appeal added successfully
                 </div>
                 <div class="alert alert-success col-4 text-center mx-auto contSuccess" role="alert" style="display:none">
@@ -389,10 +389,10 @@ if (isset($_GET['d']) && $_GET['d'] == 'true') {
   // if session set, (org created), display alert
   // echo "<script>alert('success')</script>";
     if(isset($_SESSION['message'])){
-      if ($_SESSION['message'] == 'success') {
-          echo "<script>showAlert('alert-success')</script>";
+      if ($_SESSION['message'] == 'appeal-success') {
+          echo "<script>showAlert('appeal-success')</script>";
       }
-      if ($_SESSION['message'] == 'contSuccess') {
+      elseif ($_SESSION['message'] == 'contSuccess') {
           echo "<script>showAlert('contSuccess')</script>";
       }
       else {
