@@ -82,7 +82,7 @@ include('dbConnection.php');
           <h2>Contribute Aid to Appeal</h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <li><a href="appeals.php">Appeals</a></li>
+            <li><a href="viewAppeals.php">Appeals</a></li>
             <li><?php echo "<a href='appeal.php?id=".$_SESSION['appealID']."'>Appeal ".$_SESSION['appealID']."</a>"?></li>
             <li>Contribute Aid</li>
           </ol>
