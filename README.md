@@ -1,7 +1,10 @@
 # BIT210 Web Programming Assignment 2
 
-New repo due to some mjor changes
+Continuation of previous assignment
 
 [Assignment 1 Github Pages](https://zalaancaspe.github.io/BIT210-Assignment1/)
 
-[Old Repo](https://github.com/zalaanCaspe/BIT210-Assignment2)
+Since this is a dynamic website, it won't work on github pages.  
+Major hanges since assignment 1:  
+- Each user has a dashboard  
+- Pages with Lumia portfolios now use tables
